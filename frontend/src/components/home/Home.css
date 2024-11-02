@@ -6,3 +6,8 @@
 .btn{
     width: fit-content;
 }
+
+.link{
+    text-decoration: none;
+    color: white;
+}

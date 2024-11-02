@@ -1,5 +1,6 @@
 import React from "react";
 import "./Home.css";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -12,7 +13,7 @@ const Home = () => {
           Become focused, organized, and calm <br /> with todo app.
         </p>
         <div className="text-center">
-          <button className="btn btn-danger text-center">Make Todo List</button>
+          <button className="btn btn-danger text-center" ><Link to="/todo" className="link">Make Todo List</Link></button>
         </div>
       </div>
     </div>

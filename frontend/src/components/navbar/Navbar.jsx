@@ -1,14 +1,15 @@
 import React from "react";
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary ">
         <div className="container">
-          <a className="navbar-brand" href="#">
+          <Link className="navbar-brand" to="/">
             <b>TODO</b>
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -23,34 +24,34 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item px-2 py-1">
-                <a className="nav-link active" aria-current="page" href="#">
+                <Link className="nav-link active" aria-current="page" to="/">
                   Home
-                </a>
+                </Link>
               </li>
               <li className="nav-item px-2 py-1">
-                <a className="nav-link active" aria-current="page" href="#">
+                <Link className="nav-link active" aria-current="page" to="/about">
                   About Us
-                </a>
+                </Link>
               </li>
               <li className="nav-item px-2 py-1">
-                <a className="nav-link active" aria-current="page" href="#">
+                <Link className="nav-link active" aria-current="page" to="/todo">
                   todo
-                </a>
+                </Link>
               </li>
               <li className="nav-item px-2 py-1">
-                <a className="nav-link active btn btn-primary" aria-current="page" href="#">
+                <Link className="nav-link active btn btn-primary" aria-current="page" to="/signup">
                   Sign Up
-                </a>
+                </Link>
               </li>
               <li className="nav-item px-2 py-1">
-                <a className="nav-link active btn btn-primary" aria-current="page" href="#">
+                <Link className="nav-link active btn btn-primary" aria-current="page" to="/login">
                   Login
-                </a>
+                </Link>
               </li>
               <li className="nav-item px-2 py-1">
-                <a className="nav-link active btn btn-danger" aria-current="page" href="#">
+                <Link className="nav-link active btn btn-danger" aria-current="page" to="/logout">
                   Logout
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
