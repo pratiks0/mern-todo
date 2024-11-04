@@ -2,7 +2,7 @@ import React from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { GrDocumentUpdate } from "react-icons/gr";
 
-const TodoCards = ({ title, body, id, delId, display }) => {
+const TodoCards = ({ title, body, id, delId, display, updateId, toBeUpdate }) => {
   return (
     <div>
       <div>

@@ -1,8 +1,20 @@
 import React from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const history = useNavigate();
+  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const dispatch = useDispatch();
+  const logout = () => {
+    sessionStorage.clear("id");
+    dispatch(authActions.logout());
+    history("/");
+  };
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary ">
@@ -29,30 +41,59 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="nav-item px-2 py-1">
-                <Link className="nav-link active" aria-current="page" to="/about">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/about"
+                >
                   About Us
                 </Link>
               </li>
               <li className="nav-item px-2 py-1">
-                <Link className="nav-link active" aria-current="page" to="/todo">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/todo"
+                >
                   todo
                 </Link>
               </li>
-              <li className="nav-item px-2 py-1">
-                <Link className="nav-link active btn btn-primary" aria-current="page" to="/signup">
-                  Sign Up
-                </Link>
-              </li>
-              <li className="nav-item px-2 py-1">
-                <Link className="nav-link active btn btn-primary" aria-current="page" to="/login">
-                  Login
-                </Link>
-              </li>
-              <li className="nav-item px-2 py-1">
-                <Link className="nav-link active btn btn-danger" aria-current="page" to="/logout">
-                  Logout
-                </Link>
-              </li>
+              {!isLoggedIn && (
+                <>
+                  <li className="nav-item px-2 py-1">
+                    <Link
+                      className="nav-link active btn btn-primary"
+                      aria-current="page"
+                      to="/signup"
+                    >
+                      Sign Up
+                    </Link>
+                  </li>
+                  <li className="nav-item px-2 py-1">
+                    <Link
+                      className="nav-link active btn btn-primary"
+                      aria-current="page"
+                      to="/login"
+                    >
+                      Login
+                    </Link>
+                  </li>
+                </>
+              )}
+
+              {isLoggedIn && (
+                <>
+                  <li className="nav-item px-2 py-1" onClick={logout}>
+                    <Link
+                      className="nav-link active btn btn-danger"
+                      aria-current="page"
+                      to="/logout"
+                    >
+                      Logout
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>

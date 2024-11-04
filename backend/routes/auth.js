@@ -14,7 +14,7 @@ router.post("/register", async (req, res) => {
     } catch (error) {
         if (error.code === 11000) {
             // Duplicate key error code for MongoDB
-            res.status(400).json({ message: "User Already Exists" });
+            res.status(200).json({ message: "User Already Exists" });
         } else {
             res.status(500).json({ message: "Server Error", error: error.message });
         }
@@ -35,12 +35,12 @@ router.post("/login", async (req, res) => {
             user.password
         );
         if(!isPasswordCorrect) {
-            return res.status(400).json({ message: "Invalid Password" });
+            return res.status(200).json({ message: "Invalid Password" });
         }
         const { password, ...others } = user._doc;
         res.status(200).json({ others })
     } catch (error) {
-        return res.status(400).json({ message: "user already exists" });
+        return res.status(200).json({ message: "user already exists" });
     }
 })
 
