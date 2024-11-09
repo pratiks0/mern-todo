@@ -8,15 +8,20 @@ router.post("/addTask", async (req, res) => {
     const { title, body, id } = req.body;
     const existingUser = await User.findById(id);
     if (existingUser) {
-      const list = new List({ title, body, user: existingUser });
-      await list.save().then(() => res.status(200).json({ list }));
-      existingUser.list.push(list);
+      const list = new List({ title, body, user: existingUser._id });
+      await list.save();
+      existingUser.list.push(list._id); // Push only the list's ID to the user
       await existingUser.save();
+      res.status(200).json({ list });
+    } else {
+      res.status(404).json({ message: "User not found" });
     }
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
+
 
 //update
 router.put("/updateTask/:id", async (req, res) => {
@@ -33,28 +38,30 @@ router.put("/updateTask/:id", async (req, res) => {
 router.delete("/deleteTask/:id", async (req, res) => {
   try {
     const { id } = req.body;
-    const existingUser = await User.findByIdAndUpdate(
-      id,
-      { $pull: { list: req.params.id } }
-    );
+    const existingUser = await User.findByIdAndUpdate(id, {
+      $pull: { list: req.params.id },
+    });
     if (existingUser) {
       await List.findByIdAndDelete(req.params.id).then(() =>
         res.status(200).json({ message: "Task Deleted" })
       );
     }
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
   }
 });
 
-//get task
+//getTska
 router.get("/getTasks/:id", async (req, res) => {
-  const list = await List.find({ user: req.params.id }).sort({ createdAt: -1});
-  if(list.length !== 0){
-    res.status(200).json({ list: list });
-  }
-  else{
-    res.status(200).json({ message: "No tasks found" });
+  try {
+    const list = await List.find({ user: req.params.id }).sort({
+      createdAt: -1,
+    });
+    if (list.length !== 0) {
+      res.status(200).json({ list: list });
+    }
+  } catch (error) {
+    console.log(error);
   }
 });
 

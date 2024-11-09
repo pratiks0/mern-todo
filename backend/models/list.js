@@ -9,12 +9,11 @@ const listSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    user: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "User",
-      },
-    ],
+    user: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      required: false // ensure it's always set
+    },
   },
   { timestamps: true }
 );
